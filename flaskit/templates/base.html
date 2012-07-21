@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }} {{ username }}</title>
+</head>
+
+<body>
+{% if username %}
+<h4>Welcome, {{ username }}</h4>
+{% endif %}
+{{ body|safe }}
+</body>
+
+</html>
