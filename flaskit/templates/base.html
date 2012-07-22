@@ -6,9 +6,27 @@
 
 <body>
 {% if username %}
-<h4>Welcome, {{ username }}</h4>
+    <h4>Welcome, {{ username }}</h4>
 {% endif %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class=flashes>
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
 {{ body|safe }}
+<footer>
+    <ul>
+        {% if username %}
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        {% else %}
+        <li><a href="{{ url_for('login') }}">Login</a></li>
+        {% endif %}
+    </ul>
+</footer>
 </body>
 
 </html>

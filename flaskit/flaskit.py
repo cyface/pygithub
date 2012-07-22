@@ -1,7 +1,7 @@
 """testing flask framework"""
 from pygithub3 import Github
 from docutils import core
-from flask import Flask, session, redirect, url_for, request, render_template
+from flask import Flask, session, redirect, url_for, request, render_template, flash
 from flask.ext.github import GithubAuth
 
 app = Flask(__name__)
@@ -33,6 +33,7 @@ def login():
     if session.get('user_id', None) is None:
         return github.authorize()
     else:
+        flash('You are already logged in')
         next_url = request.args.get('next') or url_for('index')
         return redirect(next_url)
 
@@ -48,11 +49,14 @@ def authorized(resp):
 
     session['user_id'] = token
 
+    flash('You were successfully logged in')
+
     return redirect(next_url)
 
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)
+    flash('You have been logged out.')
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
