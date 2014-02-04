@@ -1,8 +1,15 @@
 """Simple Test of PyGithub"""
 
 from pygithub3 import Github
+import ConfigParser
 
-gh = Github(login='timlwhite', password='p1Decker')
+config = ConfigParser.ConfigParser()
+config.read('pygithub.cfg')
+
+username = config.get("github", "username")
+password = config.get("github", "password")
+
+gh = Github(login=username, password=password)
 
 timlwhite = gh.users.get()
 print (timlwhite)
@@ -15,4 +22,3 @@ print (myrepo)
 
 timlwhite_watches = gh.repos.watchers.list_repos().all()
 print (timlwhite_watches)
-
