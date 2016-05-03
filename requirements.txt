@@ -1,3 +1,4 @@
+docutils
 pygithub3
 flask
 flask-github
